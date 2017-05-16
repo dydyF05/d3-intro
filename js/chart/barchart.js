@@ -10,17 +10,18 @@ const Barchart = (function(){
 
     const roundTo1 = d => d / getMax();
     const applyWidth = d => d * 1.2 + "px";
-    const applyColor = d => "rgba(0, 49, 51, " + roundTo1(d) + ")";
+    const applyColor = d => d3.interpolateCool(roundTo1(d));
     const applyText = d => d;
 
     exposed.create = (selector, data = getRandDatas(10)) => {
+        data = data.sort();
         d3.select(selector)
             .selectAll("div")
             .data(data)
             .enter().append("div")
             .style("width", applyWidth)
             .style("background", applyColor)
-            .style("opacity", roundTo1)
+            .style("margin-top", d => "2px")
             .text( applyText );
     };
     return exposed;
