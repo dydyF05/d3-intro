@@ -15,6 +15,11 @@ const Barchart = (function(){
 
     exposed.create = (selector, data = getRandDatas(10)) => {
         data = data.sort();
+
+        const x = d3.scaleLinear()
+            .domain([0, d3.max(data)])
+            .range([getMin(), getMax()]);
+
         d3.select(selector)
             .selectAll("div")
             .data(data)
